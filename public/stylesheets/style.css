@@ -1,0 +1,44 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+nav { 
+    width: 100%;
+}
+
+#subredditSelector {
+    width: 270px;
+    margin-right: 10px;
+}
+
+#searchReddit {
+    width: 700px;
+    margin-right: 10px;
+}
+
+#leftIcons {
+    border-right: 1px solid black;
+    padding-right: 5px;
+    margin: 0px !important;
+}
+
+#rightIcons {
+    padding-left: 5px;
+    margin: 0px !important;
+}
+
+#Users {
+    margin-left: 10px;
+}
+
+#Users form {
+    display: inline;
+}
+
+#Users button {
+    margin: 5px;
+}

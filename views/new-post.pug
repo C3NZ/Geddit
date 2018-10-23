@@ -1,0 +1,22 @@
+extends layouts/layout
+
+block content
+    include includes/navbar.pug
+    div.container-fluid()
+        div.row()
+            div.col-md-4.offset-md-4()
+                form(action='/posts', method='POST')
+                    legend() New Post
+                    div.form-group()
+                        label(for='postTitle') Title
+                        input.form-control#postTitle(type='text', name='title', placeholder='Title')
+                    div.form-group()
+                        label(for='postUrl') URL
+                        input.form-control#postUrl(type='url', name='url', placeholder='https://google.com')
+                    div.form-group()
+                        label(for='postSummary')
+                        textarea.form-control#postSummary(type='text', name='summary', placeholder='Summary')
+                    div.text-right()
+                        button.btn.btn-primary() Submit post
+
+

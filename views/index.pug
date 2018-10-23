@@ -1,39 +1,4 @@
 extends layout
 
 block content
-  div.container-fluid()
-    div.row()
-        nav.navbar.navbar-expand-lg.navbar-light.bg-light()
-            a.navbar-brand(href='#') Geddit
-            ul.navbar-nav.mr-auto()
-                li.nav-item.dropdown#subredditSelector()
-                    a.nav-link.dropdown-toggle(href='#', id='navbarDropdown', role='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') All
-                    div.dropdown-menu(aria-labelledby='navbarDropdown')
-                        a.dropdown-item(href='#') Home
-            form.inline-form#searchReddit()
-                input.form-control(type='search', placeholder='Search Geddit' aria-label='Search')
-            ul.navbar-nav#leftIcons()
-                li.nav-item()
-                    a.nav-link(href='#')
-                        i.material-icons() &#xe8e5;
-                li.nav-item()
-                    a.nav-link(href='#')
-                        i.material-icons() &#xe162;
-                li.nav-item()
-                    a.nav-link(href='#')
-                        i.material-icons() &#xe3c4;
-            ul.navbar-nav.mr-auto#rightIcons()
-                li.nav-item()
-                    a.nav-link(href='#')
-                        i.material-icons() &#xe0b7;
-                li.nav-item()
-                    a.nav-link(href='#')
-                        i.material-icons() &#xe0be;
-                li.nav-item()
-                    a.nav-link(href='#')
-                        i.material-icons() &#xe150;
-            span#Users()
-                form.inline-form()
-                    button.btn.btn-primary() Sign up
-                form.inline-form()
-                    button.btn.btn-primary() Login
+    include includes/navbar.pug

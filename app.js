@@ -11,6 +11,10 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts')
 
+//Connect to mongoDB (configured for both deployment and local)
+const mongodbURI = process.env.MONGODB_URI
+mongoose.connect(mongodbURI || 'mongodb://localhost/Geddit', {useNewUrlParser: true});
+
 const app = express();
 
 // view engine setup

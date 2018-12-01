@@ -5,6 +5,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const expressValidator = require('express-validator');
 
 //Router imports
 const indexRouter = require('./routes/index');
@@ -12,8 +13,7 @@ const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts')
 
 //Connect to mongoDB (configured for both deployment and local)
-const mongodbURI = process.env.MONGODB_URI
-mongoose.connect(mongodbURI || 'mongodb://localhost/Geddit', {useNewUrlParser: true});
+require('./data/reddit-db');
 
 const app = express();
 
@@ -25,13 +25,14 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Our defined routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/posts', postsRouter)
+app.use('/posts', postsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

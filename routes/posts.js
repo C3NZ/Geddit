@@ -7,12 +7,25 @@ router.get('/new', (req, res) => {
     res.render('new-post', {});
 })
 
+//GET the view for a specific post
+router.get('/:postId', (req, res) => {
+    Post.findOne({_id: req.params.postId}).then(post => {
+        res.render('show-post', {post: post})
+    }).catch(err => {
+        console.error(err);
+    })
+})
+
 //Create a new post
 router.post('/', (req, res) => {
     let post = new Post(req.body);
     
     post.save((err, post) => {
-        return res.redirect(`/`)
+        if(err) {
+            console.error(err);
+        }else{
+            return res.redirect(`/`);
+        }
     })
     
 })

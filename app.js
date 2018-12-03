@@ -6,12 +6,16 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose');
 const expressValidator = require('express-validator');
+const jwt = require('jsonwebtoken');
+
+require('dotenv').config();
 
 //Router imports
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const postsRouter = require('./routes/posts')
 const commentsRouter = require('./routes/comments');
+const authRouter = require('./routes/auth');
 
 //Connect to mongoDB (configured for both deployment and local)
 require('./data/reddit-db');
@@ -32,6 +36,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //Our defined routes
 app.use('/', indexRouter);
+app.use('/auth', authRouter)
 app.use('/users', usersRouter);
 app.use('/posts', postsRouter);
 app.use('/comments', commentsRouter);

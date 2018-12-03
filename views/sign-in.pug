@@ -1,0 +1,19 @@
+extends layouts/layout
+
+block content
+    include includes/navbar.pug
+    div.container-fluid()
+        div.row()
+            div.col-md-4.offset-md-4()
+                form(action='/auth/sign-in', method='POST')
+                    legend() Sign in
+                    div.form-group()
+                        label(for='postTitle') Username
+                        input.form-control#postTitle(type='text', name='username', placeholder='Username')
+                    div.form-group()
+                        label(for='post-subreddit') Password
+                        input.form-control#postSubreddit(name='password', type='password', placeholder='Password')
+                    div.text-right()
+                        button.btn.btn-primary() Sign in
+
+

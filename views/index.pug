@@ -11,3 +11,5 @@ block content
                             a.lead(href='/posts/' + post._id)= post.title
                             br()
                             a(href=post.url target='_blank')= post.url
+                            div.text-right()
+                                a(href='/c/' + post.subreddit)= post.subreddit

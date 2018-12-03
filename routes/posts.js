@@ -9,7 +9,7 @@ router.get('/new', (req, res) => {
 
 //GET the view for a specific post
 router.get('/:postId', (req, res) => {
-    Post.findOne({_id: req.params.postId}).then(post => {
+    Post.findOne({_id: req.params.postId}).populate('comments').then(post => {
         res.render('show-post', {post: post})
     }).catch(err => {
         console.error(err);

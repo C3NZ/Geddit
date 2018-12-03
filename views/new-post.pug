@@ -16,6 +16,9 @@ block content
                     div.form-group()
                         label(for='postSummary')
                         textarea.form-control#postSummary(type='text', name='summary', placeholder='Summary')
+                    div.form-group()
+                        label(for='post-subreddit') Subreddit
+                        input.form-control#postSubreddit(name='subreddit', type='text', placeholder='Subreddit')
                     div.text-right()
                         button.btn.btn-primary() Submit post
 

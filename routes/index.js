@@ -9,8 +9,19 @@ router.get('/', function(req, res, next) {
             res.render('index', {posts: posts})
         })
         .catch(err => {
-            console.log(err.message)
+            console.err(err.message)
         })
 });
+
+/* GET a specific subreddit */
+router.get('/c/:subreddit', (req, res) => {
+    Post.find({subreddit: req.params.subreddit})
+        .then(posts => {
+            res.render('index', {posts: posts})
+        })
+        .catch(err => {
+            console.error(err)
+        })
+})
 
 module.exports = router;

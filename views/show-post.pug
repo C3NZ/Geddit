@@ -6,3 +6,10 @@ block content
         div.col-sm-6.offset-sm-3
             a.lead(href=post.url)= post.title
             p()= post.summary
+            form(action='/comments/' + post._id, method='POST')
+                textarea.form-control(name='content', placeholder='Comment')
+                div.text-right()
+                    button(type='submit') Save
+            each comment in post.comments
+                p= comment.content
+

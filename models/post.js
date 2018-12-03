@@ -8,7 +8,9 @@ const PostSchema = new Schema({
     updatedAt: {type: Date, required: false},
     title: {type: String, required: true},
     url: {type: String, required: true},
-    summary: {type: String, required: true}
+    summary: {type: String, required: true},
+    subreddit: {type: String, required: true, default: 'none'},
+    comments: [{type: Schema.Types.ObjectId, ref:'Comment'}]
 });
 
 //Before saving the document into our database, we register middleware

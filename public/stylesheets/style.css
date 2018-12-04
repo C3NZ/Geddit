@@ -42,3 +42,15 @@ nav {
 #Users button {
     margin: 5px;
 }
+
+#rememberField > input {
+    width: 20px;
+    float: left;
+}
+
+#rememberField > p {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    float: left;
+}
+

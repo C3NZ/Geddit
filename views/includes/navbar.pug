@@ -30,11 +30,14 @@ div.container-fluid()
                     a.nav-link(href='#')
                         i.material-icons() &#xe150;
             span#Users()
-                form.inline-form(action='/auth/sign-up')
-                    button.btn.btn-primary() Sign up
-                form.inline-form(action='/auth/sign-in')
-                    button.btn.btn-primary() Login
-                form.inline-form(action='/auth/logout') 
-                    button.btn.btn-primary() Logout
-                form.inline-form(method='GET', action='/posts/new')
-                    button.btn.btn-primary() New post
+                unless user
+                    form.inline-form(action='/auth/sign-up')
+                        button.btn.btn-primary() Sign up
+                    form.inline-form(action='/auth/sign-in')
+                        button.btn.btn-primary() Login
+                else 
+                    form.inline-form(method='GET', action='/posts/new')
+                        button.btn.btn-primary() New post
+                    form.inline-form(action='/auth/logout') 
+                        button.btn.btn-primary() Logout
+

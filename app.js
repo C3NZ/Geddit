@@ -1,4 +1,4 @@
-//NPM modules && std library imports
+// NPM modules && std library imports
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');

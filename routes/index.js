@@ -6,10 +6,11 @@ const Post = require('../models/post')
 router.get('/', function(req, res, next) {
     Post.find()
         .then(posts => {
-            res.render('index', {posts: posts})
+            res.locals.posts = posts
+            res.render('index', res.locals)
         })
         .catch(err => {
-            console.err(err.message)
+            console.error(err.message)
         })
 });
 
@@ -17,11 +18,21 @@ router.get('/', function(req, res, next) {
 router.get('/c/:subreddit', (req, res) => {
     Post.find({subreddit: req.params.subreddit})
         .then(posts => {
-            res.render('index', {posts: posts})
+            res.locals.posts = posts
+            res.render('index', res.locals)
         })
         .catch(err => {
             console.error(err)
         })
+})
+
+router.get('/admin', (req, res) => {
+    console.log(res.locals.user.payload.type)
+    if (res.locals.user.payload.type === 'user') {
+        res.status(401).send('Hey, youre not an admin!!!')
+    } else {
+        res.status(200).send("hey, youre an admin!")
+    }
 })
 
 module.exports = router;

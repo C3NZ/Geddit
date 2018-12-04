@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const expressValidator = require('express-validator');
 const jwt = require('jsonwebtoken');
 
+const checkAuth = require('./lib/authenticateUser');
 require('dotenv').config();
 
 //Router imports
@@ -33,6 +34,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+//Custom middleware for checking if a user is authenticated and handling that authentication
+app.use('/', checkAuth)
 
 //Our defined routes
 app.use('/', indexRouter);

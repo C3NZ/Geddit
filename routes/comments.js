@@ -1,9 +1,12 @@
+//import express
 const express = require('express');
 const router = express.Router();
 
+//Import user and post models
 const Comment = require('../models/comment');
 const Post = require('../models/post');
 
+//POST a new comment to a post and then redirect the user
 router.post('/:postId', (req, res) => {
     const comment = new Comment(req.body);
 

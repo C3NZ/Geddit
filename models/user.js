@@ -6,7 +6,8 @@ const UserSchema = new Schema({
     createdAt: {type: Date},
     updatedAt: {type: Date},
     password: {type: String, select:false},
-    username: {type: String, required: true}
+    username: {type: String, required: true},
+    type: {type: String, default: 'user'}
 });
 
 //Pre save hook for updating and creating the user
@@ -19,6 +20,11 @@ UserSchema.pre('save', function(next) {
     if(!user.createdAt) {
         user.createdAt = now;
     }
+
+    //Make sure that the field is reset if modified
+    //if (user.isModified('type')) {
+    //   user.type = 'user';
+    //}
 
     //check if the user has modified their password
     if(!user.isModified('password')) {

@@ -9,13 +9,13 @@ const UserSchema = new Schema({
     createdAt: { type: Date },
     updatedAt: { type: Date },
     password: { type: String, select: false },
-    username: { type: String, required: true },
+    username: { type: String, required: true, unique: true },
     type: { type: String, default: 'user' },
     posts: [{ type: Schema.Types.ObjectId, ref: 'User', required: true }],
 });
 
 // Pre save hook for updating and creating the user
-UserSchema.pre('save', (next) => {
+UserSchema.pre('save', function (next) {
     const user = this;
     const now = new Date();
 
@@ -29,18 +29,18 @@ UserSchema.pre('save', (next) => {
     if (user.isModified('password')) {
         // if so, hash the new password and store it in the database
         bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(user.password, salt, (err, hash) => {
-                if (err) next(err);
+            bcrypt.hash(user.password, salt, (error, hash) => {
+                if (err) next(error);
 
                 user.password = hash;
+                return next();
             });
         });
     }
-    return next();
 });
 
 // method for comparing passwords to one already in the database
-UserSchema.methods.comparePassword = (password, done) => {
+UserSchema.methods.comparePassword = function (password, done) {
     bcrypt.compare(password, this.password, (err, isMatch) => {
         done(err, isMatch);
     });

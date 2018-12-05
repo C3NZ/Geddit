@@ -1,0 +1,21 @@
+extends layouts/layout
+
+block content
+    include includes/navbar
+    div.container
+        div.row
+            div.col-6-md.offset-md-3#profileContainer()
+                div.profileCard()
+                    img#profilePicture(src='/img/default-pf.jpg')
+                    div#profileInformation 
+                        h1()#profileName= profile.username
+                        h5()#profilePosts= 'posts: ' + posts.length
+                    h2#postsHeader() Posts
+                    div#postsContainer()
+                        each post in posts
+                            div#postCard()
+                               a(href='/posts/' + post._id)
+                                   h3()=post.title
+                               a(href='/c/' post.subreddit)
+                                   p()= '/c/' + post.subreddit
+

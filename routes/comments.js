@@ -16,10 +16,11 @@ router.use(checkAuth);
 // POST a new comment to a post and then redirect the user
 router.post('/:postId', (req, res) => {
     const comment = new Comment(req.body);
+    comment.author = res.locals.user._id;
 
     comment
         .save()
-        .then(() => { Post.findOne({ _id: req.params.postId }); })
+        .then(() => Post.findOne({ _id: req.params.postId }))
         .then((post) => {
             post.comments.unshift(comment);
             return post.save();

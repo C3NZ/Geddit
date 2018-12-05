@@ -24,12 +24,12 @@ router.post('/sign-up', (req, res) => {
         .then((newUser) => {
             // create the token and then send it to the user
 
-            const token = jwt.sign({ _id: newUser._id, username: user.username, type: user.type }, process.env.SECRET, { expiresIn: '60 days' });
+            const token = jwt.sign({ _id: user._id, username: user.username, type: user.type }, process.env.SECRET, { expiresIn: '60 days' });
             const maxAge = 60 * 24 * 60 * 60 * 1000;
             res.cookie('nToken', token, { maxAge, httpOnly: true });
             res.redirect('/');
         })
-        .catch((err) => { res.status(400).send({ err }); });
+        .catch((err) => { res.status(400).send({ err: err.message }); });
 });
 
 // GET the sign in form
@@ -57,7 +57,7 @@ router.post('/sign-in', (req, res) => {
             user.comparePassword(password, (err, isMatch) => {
                 // check if an error occurred within our db
                 if (err) {
-                    res.status(500).send({ err: err.message });
+                    return res.status(500).send({ err: err.message });
                 }
 
                 // handle what happens if our passwords don't match
@@ -80,10 +80,9 @@ router.post('/sign-in', (req, res) => {
 
                 // Send jwt token to the user
                 const maxAge = 60 * 24 * 60 * 60 * 1000;
-                return res.cookie('nToken', token, { maxAge, httpOnly: true });
+                res.cookie('nToken', token, { maxAge, httpOnly: true });
+                return res.redirect('/');
             });
-
-            return res.redirect('/');
         })
         .catch((err) => { res.status(500).send(err.message); });
 });

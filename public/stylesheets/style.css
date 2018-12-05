@@ -54,3 +54,55 @@ nav {
     float: left;
 }
 
+#profileContainer {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+}
+
+.profileCard {
+    padding: 20px;
+    display: block;
+    border: 2px solid black;
+    border-radius: 6px; 
+    box-shadow: 5px 10px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#profilePicture {
+
+    width: 125px;
+    height: 125px;
+}
+
+#profileInformation {
+    padding-left: 10px;
+    width: calc(100% - 125px);
+    height: 75px;
+}
+
+#postsHeader {
+    width: 100%;
+    margin-top: 25px;
+}
+
+#postsContainer {
+    margin-top: 2px;
+    display: block;
+    width: inherit;
+}
+
+#postCard {
+    padding: 10px; 
+    width: 100%;
+    display: block;
+    border: 2px solid black;j
+
+}
+

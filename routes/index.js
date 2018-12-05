@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
             res.locals.posts = posts;
             return res.render('index', res.locals);
         })
-        .catch((err) => { res.status(501).send(err.message); });
+        .catch(err => res.status(501).send(err.message));
 });
 
 /* GET a specific subreddit */
@@ -20,7 +20,7 @@ router.get('/c/:subreddit', (req, res) => {
             res.locals.posts = posts;
             return res.render('index', res.locals);
         })
-        .catch((err) => { res.status(501).send(err.message); });
+        .catch(err => res.status(501).send(err.message));
 });
 
 module.exports = router;

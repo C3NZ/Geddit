@@ -1,5 +1,6 @@
 // Module for interacting with our Post model
 const mongoose = require('mongoose');
+const Comment = require('./comment');
 const { Schema } = mongoose;
 
 // Post Schema for defining what to save in a document
@@ -11,7 +12,7 @@ const PostSchema = new Schema({
     summary: { type: String, required: true },
     subreddit: { type: String, required: true, default: 'none' },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    comments: [Comment.schema],
 });
 
 // Before saving the document into our database, we register middleware

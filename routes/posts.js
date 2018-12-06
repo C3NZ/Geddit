@@ -17,7 +17,7 @@ router.get('/new', (req, res) => {
 router.get('/:postId', (req, res) => {
     Post.findOne({ _id: req.params.postId })
         .populate('author')
-        .populate({ path: 'comments', populate: { path: 'author' } })
+        .populate({ path: 'comments.author', model: 'User' })
         .then((post) => {
             res.locals.post = post;
             return res.render('show-post', res.locals);

@@ -12,7 +12,6 @@ block content
                 textarea.form-control(name='content', placeholder='Comment')
                 div.text-right()
                     button(type='submit') Save
-            each comment in post.comments
-                p= comment.content
-                a(href='/profiles/' + comment.author.username)= comment.author.username
-
+            div#commentContainer()
+                each comment in post.comments
+                    include includes/comment 

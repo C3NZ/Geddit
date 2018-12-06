@@ -17,6 +17,7 @@ router.get('/sign-up', (req, res) => {
 
 // POST a new user and then provide a jwt to the signed up user
 router.post('/sign-up', (req, res) => {
+    console.log(req.body)
     const user = new User(req.body);
 
     user

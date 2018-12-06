@@ -106,3 +106,11 @@ nav {
 
 }
 
+.commentCard {
+    margin-left: 10px;
+}
+
+#reply {
+    width: 60%;
+    resize: none;
+}

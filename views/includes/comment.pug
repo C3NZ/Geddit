@@ -1,0 +1,9 @@
+div.commentCard()
+    p= comment.content
+    a(href='/profiles/' + comment.author.username)= comment.author.username
+    form.reply(action='/comments/' + post._id + '/' + comment._id, method='POST')
+        textarea.form-control(name='content', placeholder='Comment')
+    each reply in comment.replies
+        include reply
+
+

@@ -1,6 +1,7 @@
 // Module for interacting with our Post model
 const mongoose = require('mongoose');
 const Comment = require('./comment');
+const deepPopulate = require('mongoose-deep-populate')(mongoose);
 const { Schema } = mongoose;
 
 // Post Schema for defining what to save in a document
@@ -27,5 +28,7 @@ PostSchema.pre('save', function(next) {
 
     next();
 });
+
+PostSchema.plugin(deepPopulate);
 
 module.exports = mongoose.model('Post', PostSchema)

@@ -1,5 +1,18 @@
 extends layouts/layout
 
+mixin generateComment(comment)
+    div.commentCard()
+        p= comment.content
+        a(href='/profiles/' + comment.author.username)= comment.author.username
+        if user        
+            form.reply(action='/comments/' + post._id + '/' + comment._id, method='POST')
+                input.form-control(type='hidden', name='author', value=user._id)
+                textarea.form-control(name='content', placeholder='Comment')
+                div.text-right()    
+                    button(type='submit') Submit
+        each reply in comment.replies
+            +generateComment(reply)
+
 block content
     include includes/navbar 
     div.row
@@ -14,4 +27,4 @@ block content
                     button(type='submit') Save
             div#commentContainer()
                 each comment in post.comments
-                    include includes/comment 
+                    +generateComment(comment)

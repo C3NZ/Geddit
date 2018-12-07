@@ -35,9 +35,11 @@ router.post('/:postId/:commentId', (req, res) => {
     Post
         .findOne({ _id: req.params.postId })
         .then((post) => {
-            const comment = post.comments.id(req.params.commentId);
-            comment.replies.unshift(req.body);
-
+            const comment = post.comments._id(req.params.commentId);
+            const subComment = new Comment(req.body);
+            
+            comment.replies.unshift(subComment);
+            
             return post.save();
         })
         // eslint-disable-next-line

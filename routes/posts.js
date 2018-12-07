@@ -7,7 +7,7 @@ const checkAuth = require('../lib/authorizeUser');
 
 // Create the router
 const router = express.Router();
-
+const Comment = require('../models/comment')
 // GET the form for creating a new post
 router.get('/new', (req, res) => {
     res.render('new-post', res.locals);
@@ -16,9 +16,9 @@ router.get('/new', (req, res) => {
 // GET the view for a specific post
 router.get('/:postId', (req, res) => {
     Post.findOne({ _id: req.params.postId })
-        .populate('author')
-        .populate({ path: 'comments.author', model: 'User' })
+        .deepPopulate('author comments.author comments.replies')
         .then((post) => {
+            console.log(post.comments)
             res.locals.post = post;
             return res.render('show-post', res.locals);
         })

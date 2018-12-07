@@ -17,14 +17,13 @@ router.get('/sign-up', (req, res) => {
 
 // POST a new user and then provide a jwt to the signed up user
 router.post('/sign-up', (req, res) => {
-    console.log(req.body)
     const user = new User(req.body);
 
     user
         .save()
         .then((newUser) => {
             // create the token and then send it to the user
-
+            // eslint-disable-next-line
             const token = jwt.sign({ _id: user._id, username: user.username, type: user.type }, process.env.SECRET, { expiresIn: '60 days' });
             const maxAge = 60 * 24 * 60 * 60 * 1000;
             res.cookie('nToken', token, { maxAge, httpOnly: true });

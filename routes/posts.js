@@ -9,7 +9,7 @@ const checkAuth = require('../lib/authorizeUser');
 const router = express.Router();
 const Comment = require('../models/comment')
 
-const commentsRouter = require('./comments')
+const commentsRouter = require('./comments');
 
 // GET the form for creating a new post
 router.get('/new', (req, res) => {

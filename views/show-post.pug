@@ -26,7 +26,7 @@ block content
                     button(type='submit') Vote up
                 form.vote-down(data-id=post._id)
                     button(type='submit') Vote down
-            form(action= '/posts' + post._id + '/comments', method='POST')
+            form(action= '/posts/' + post._id + '/comments', method='POST')
                 textarea.form-control(name='content', placeholder='Comment')
                 div.text-right()
                     button(type='submit') Save

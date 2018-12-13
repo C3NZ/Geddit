@@ -16,8 +16,7 @@ const PostSchema = new Schema({
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     upVotes: { type: Array },
     downVotes: { type: Array },
-    postScore: { type: Number }
-});
+    postScore: { type: Number } });
 
 // Before saving the document into our database, we register middleware
 // that gets triggered on every create/save call

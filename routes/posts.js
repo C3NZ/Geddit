@@ -8,6 +8,9 @@ const checkAuth = require('../lib/authorizeUser');
 // Create the router
 const router = express.Router();
 const Comment = require('../models/comment')
+
+const commentsRouter = require('./comments')
+
 // GET the form for creating a new post
 router.get('/new', (req, res) => {
     res.render('new-post', res.locals);
@@ -16,9 +19,9 @@ router.get('/new', (req, res) => {
 // GET the view for a specific post
 router.get('/:postId', (req, res) => {
     Post.findOne({ _id: req.params.postId })
-        .deepPopulate('author comments.author comments.replies')
+        .populate('comments')
+        .populate('author')
         .then((post) => {
-            console.log(post.comments)
             res.locals.post = post;
             return res.render('show-post', res.locals);
         })
@@ -44,5 +47,35 @@ router.post('/', (req, res) => {
         })
         .catch(err => res.status(500).send(err.message));
 });
+
+// PUT a upvote on to a users post
+router.put('/:postId/vote-up', (req, res) => {
+    Post
+        .findOne({ _id: req.params.postId })
+        .exec((err, post) => {
+            post.upVotes.push(res.locals.user._id);
+            post.voteScore = post.voteTotal + 1;
+            post.save();
+
+            res.status(200).send();
+        })
+        .catch(err => res.status(500).send(err.message));
+});
+
+// PUT a downvote on to a users post
+router.put('/:postId/vote-down', (req, res) => {
+    Post
+        .findOne({ _id: req.params.postId })
+        .exec((err, post) => {
+            post.downVotes.push(res.locals.user._id);
+            post.voteScore = post.voteTotal - 1;
+            post.save();
+
+            res.status(200).send();
+        })
+        .catch(err => res.status(500).send(err.message));
+})
+
+router.use('/:postId/comments', commentsRouter);
 
 module.exports = router;

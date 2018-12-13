@@ -9,13 +9,13 @@ const Post = require('../models/post');
 const checkAuth = require('../lib/authorizeUser');
 
 // setup express router
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 // Make sure all users are authorized to access any route below
 router.use(checkAuth);
 
 // POST a new comment to a post and then redirect the user
-router.post('/:postId', (req, res) => {
+router.post('/', (req, res) => {
     const comment = new Comment(req.body);
     // eslint-disable-next-line
     comment.author = res.locals.user._id;
@@ -31,19 +31,19 @@ router.post('/:postId', (req, res) => {
         .catch((err) => { res.status(500).send(err.message); });
 });
 
-router.post('/:postId/:commentId', (req, res) => {
-    Post
-        .findOne({ _id: req.params.postId })
-        .then((post) => {
-            const comment = post.comments._id(req.params.commentId);
-            const subComment = new Comment(req.body);
-            
-            comment.replies.unshift(subComment);
-            
-            return post.save();
+router.post('/:commentId', (req, res) => {
+    Comment
+        .create(req.body) 
+        .then((newComment) => {
+            Comment
+                .findOne({ _id: req.params.commentId })
+                .then((oldComment) => {
+                    oldComment.replies.push(newComment._id);
+                    oldComment.save();
+                    res.redirect(`/posts/${req.params.postId}`)
+                })
         })
-        // eslint-disable-next-line
-        .then(post => res.redirect(`/posts/${post._id}`))
+    // eslint-disable-next-line
         .catch(err => res.status(500).send(err.message));
 });
 

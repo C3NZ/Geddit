@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const assert = require('assert');
 
-const url = 'mongodb://localhost/reddit';
+const url = process.env.MONGODB_URI || 'mongodb://localhost/gedditt';
 mongoose.Promise = global.Promise;
 
 mongoose.connect(url,
-    {useNewUrlParser: true},
+    { useNewUrlParser: true },
     function(err, db) {
         assert.equal(err, null);
         console.log('Successfully connected to the database');

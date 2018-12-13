@@ -7,7 +7,18 @@ const { Schema } = mongoose;
 const commentSchema = new Schema({
     content: { type: String, required: true },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    replies: [{type: Schema.Types.ObjectId, ref: 'Comment'}],
+    replies: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+});
+
+
+commentSchema.pre('find', function(next) {
+    this.populate('replies')
+    next();
+});
+
+commentSchema.pre('findOne', function(next) {
+    this.populate('replies');
+    next();
 });
 
 module.exports = mongoose.model('Comment', commentSchema);

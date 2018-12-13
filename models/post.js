@@ -13,7 +13,10 @@ const PostSchema = new Schema({
     summary: { type: String, required: true },
     subreddit: { type: String, required: true, default: 'none' },
     author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
-    comments: [Comment.schema],
+    comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+    upVotes: { type: Array },
+    downVotes: { type: Array },
+    postScore: { type: Number }
 });
 
 // Before saving the document into our database, we register middleware

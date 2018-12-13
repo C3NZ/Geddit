@@ -102,8 +102,14 @@ nav {
     padding: 10px; 
     width: 100%;
     display: block;
-    border: 2px solid black;j
+    border: 2px solid black;
 
+}
+
+#commentContainer {
+    padding: 10px;
+    border: 1px solid grey;
+    border-radius: 7px;
 }
 
 .commentCard {
@@ -113,4 +119,16 @@ nav {
 #reply {
     width: 60%;
     resize: none;
+}
+
+#showPostCard {
+    padding: 10px;
+    display: block;
+    border: 1px solid grey;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#commentsHeader {
+    text-decoration: underline;
 }

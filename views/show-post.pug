@@ -5,7 +5,7 @@ mixin generateComment(comment)
         p= comment.content
         a(href='/profiles/' + comment.author.username)= comment.author.username
         if user        
-            form.reply(action='/comments/' + post._id + '/' + comment._id, method='POST')
+            form.reply(action= '/posts/' + post._id + '/comments/' + comment._id, method='POST')
                 input.form-control(type='hidden', name='author', value=user._id)
                 textarea.form-control(name='content', placeholder='Comment')
                 div.text-right()    
@@ -17,14 +17,20 @@ block content
     include includes/navbar 
     div.row
         div.col-sm-6.offset-sm-3
-            a.lead(href=post.url)= post.title
-            p()= post.summary
-            a(href='/profiles/' + post.author.username) 
-                p()= post.author.username
-            form(action='/comments/' + post._id, method='POST')
+            div#showPostCard()
+                a.lead(href=post.url)= post.title
+                p()= post.summary
+                a(href='/profiles/' + post.author.username) 
+                    p()= post.author.username
+                form.vote-up(data-id=post._id)
+                    button(type='submit') Vote up
+                form.vote-down(data-id=post._id)
+                    button(type='submit') Vote down
+            form(action= '/posts' + post._id + '/comments', method='POST')
                 textarea.form-control(name='content', placeholder='Comment')
                 div.text-right()
                     button(type='submit') Save
+            h4#commentsHeader() Comments
             div#commentContainer()
                 each comment in post.comments
                     +generateComment(comment)
